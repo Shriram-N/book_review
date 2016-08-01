@@ -7,6 +7,7 @@ class BooksController < ApplicationController
   end
 
   def show
+    @random_book=Book.where.not(id: @book).order("RANDOM()").first
   end
 
   

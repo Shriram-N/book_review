@@ -43,6 +43,10 @@ Disikes
 <%= link_to "Like", Like_book_path(@book), method: :get%>
 <%= link_to "DisLike", dilike_book_path(@book), method: :get%>
 
+<h3>You may also Like</h3>
+<%= link_to (image_tag @random_book.image.url(:medium)),book_path(@random_book) %>
+<%= @random_book.Title %>
+<%= @random_book.Author %>
 
 <p>
   <strong>Awards:</strong>
