@@ -1,5 +1,10 @@
-<%= image_tag @book.image.url(:medium) %>
 
+<div class="container">
+<div class="col-sm-6 col-md-3">
+      <div class="thumbnail">
+        <%= image_tag @book.image.url(:medium) %>
+      </div>
+    </div>
 <p>
   <strong>Title:</strong>
   <%= @book.Title %>
@@ -24,6 +29,20 @@
   <strong>Ranking:</strong>
   <%= @book.Ranking %>
 </p>
+
+<% if current_user %>
+  <%= link_to "favorite",   favorite_book_path(@book, type: "favorite"), method: :put %>
+  <%= link_to "unfavorite", favorite_book_path(@book, type: "unfavorite"), method: :put %>
+<% end %>
+<br>
+<br>
+Likes
+<%= @book.get_upvotes.size%>
+Disikes
+<%= @book.get_downvotes.size%>
+<%= link_to "Like", Like_book_path(@book), method: :get%>
+<%= link_to "DisLike", dilike_book_path(@book), method: :get%>
+
 
 <p>
   <strong>Awards:</strong>

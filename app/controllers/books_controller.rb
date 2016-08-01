@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :set_book, only: [:show, :edit, :update, :destroy,:upvote,:downvote]
   before_action :authenticate_user!, except: [:index,:show]
 
   def index
@@ -43,6 +43,35 @@ class BooksController < ApplicationController
       end
     end
   end
+
+   def favorite
+    type = params[:type]
+    if @type == "favorite"
+      current_user.favorites << @book
+      redirect_to :back, notice: "You favorited #{@book.Title}"
+
+    elsif type == "unfavorite"
+      current_user.favorites.delete(@book)
+      redirect_to :back, notice: "You Unfavorited #{@book.Title}"
+
+    else
+      # Type missing, nothing happens
+      redirect_to :back, notice: 'Nothing happened.'
+    end
+  end
+
+  def upvote
+    @book.upvote_by current_user
+    redirect_to :book
+
+  end
+
+  def downvote
+    @book.downvote_by current_user
+    redirect_to :book
+  end
+
+
 
   # DELETE /books/1
   # DELETE /books/1.json
