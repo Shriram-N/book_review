@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Books</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Summary</th>
+      <th>Rating</th>
+      <th>Author</th>
+      <th>Ranking</th>
+      <th>Awards</th>
+      <th>Recommended by</th>
+      <th>Amazon</th>
+      <th>Audiobook</th>
+      <th>Animated review</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= book.Title %></td>
+        <td><%= book.Summary %></td>
+        <td><%= book.Rating %></td>
+        <td><%= book.Author %></td>
+        <td><%= book.Ranking %></td>
+        <td><%= book.Awards %></td>
+        <td><%= book.Recommended_by %></td>
+        <td><%= book.Amazon %></td>
+        <td><%= book.Audiobook %></td>
+        <td><%= book.Animated_Review %></td>
+        <td><%= link_to 'Show', book %></td>
+        <td><%= link_to 'Edit', edit_book_path(book) %></td>
+        <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Book', new_book_path %>
