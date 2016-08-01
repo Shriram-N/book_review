@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
-  resources :reviews
+  
   devise_for :users
   resources :books do
+      resources :reviews ,except: [:show,:index]
     member do
       get "Like", to:"books#upvote"
       get "dilike", to:"books#downvote"
     end
-    put :favorite, on: :member
+      put :favorite, on: :member
 
   end
 

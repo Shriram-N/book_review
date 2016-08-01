@@ -1,16 +1,22 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy,:upvote,:downvote]
   before_action :authenticate_user!, except: [:index,:show]
-
+  
   def index
     @books = Book.all
   end
 
   def show
     @random_book=Book.where.not(id: @book).order("RANDOM()").first
+    @reviews=Review.where(book_id: @book.id).order("created_at DESC")
+
+     if @reviews.blank?
+      @avg_review = 0
+    else
+      @avg_review = @reviews.average(:rating).round(2)
+    end
   end
 
-  
   def new
     @book = current_user.books.build
   end

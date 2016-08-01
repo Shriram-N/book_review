@@ -1,63 +1,44 @@
 
 <div class="container">
+<div class="row">
 <div class="col-sm-6 col-md-3">
       <div class="thumbnail">
         <%= image_tag @book.image.url(:medium) %>
       </div>
     </div>
-<p>
-  <strong>Title:</strong>
-  <%= @book.Title %>
-</p>
+    <div class="col-sm-6 col-md-6">
+      <p>
+         <strong>Title:</strong>
+         <%= @book.Title %>
+      </p>
 
-<p>
-  <strong>Summary:</strong>
-  <%= @book.Summary %>
-</p>
-
-<p>
-  <strong>Rating:</strong>
-  <%= @book.Rating %>
-</p>
-
-<p>
-  <strong>Author:</strong>
-  <%= @book.Author %>
-</p>
-
-<p>
-  <strong>Ranking:</strong>
-  <%= @book.Ranking %>
-</p>
-
+      <p>
+         <strong>Author:</strong>
+         <%= @book.Author %>
+      </p>
+      <p>
+          <div class="star-rating" data-score= <%= @avg_review %> ></div>
+        <em><%= "#{@reviews.length} reviews" %></em>
+      </p>
+      <p>
+         <strong>Ranking:</strong>
+         <%= @book.Ranking %>
+         </p>
+       <p>  
 <% if current_user %>
   <%= link_to "favorite",   favorite_book_path(@book, type: "favorite"), method: :put %>
   <%= link_to "unfavorite", favorite_book_path(@book, type: "unfavorite"), method: :put %>
 <% end %>
-<br>
-<br>
-Likes
+</p>
+<p>
+<strong>Likes</strong>
 <%= @book.get_upvotes.size%>
-Disikes
+<strong>DisLikes</strong>
 <%= @book.get_downvotes.size%>
+</p>
+<p>
 <%= link_to "Like", Like_book_path(@book), method: :get%>
 <%= link_to "DisLike", dilike_book_path(@book), method: :get%>
-
-<h3>You may also Like</h3>
-<%= link_to (image_tag @random_book.image.url(:medium)),book_path(@random_book) %>
-<%= @random_book.Title %>
-<%= @random_book.Author %>
-
-<p>
-  <strong>Awards:</strong>
-  <%= @book.Awards %>
-</p>
-
-<p>
-  <strong>Recommended by:</strong>
-  <%= @book.Recommended_by %>
-</p>
-
 <p>
   <strong>Amazon:</strong>
   <%= @book.Amazon %>
@@ -73,5 +54,59 @@ Disikes
   <%= @book.Animated_Review %>
 </p>
 
+      </p>
+      </div>
+      </div>
+      </div>
+
+
+
+<h3>You may also Like</h3>
+<%= link_to (image_tag @random_book.image.url(:medium)),book_path(@random_book) %>
+<%= @random_book.Title %>
+<%= @random_book.Author %>
+<p>
+  <strong>Summary:</strong>
+  <%= @book.Summary %>
+</p>
+<p>
+  <strong>Awards:</strong>
+  <%= @book.Awards %>
+</p>
+
+<p>
+  <strong>Recommended by:</strong>
+  <%= @book.Recommended_by %>
+</p>
+<h3>Write a Review</h3>
+<br>
+<br>
+<%= link_to "Write a Review",new_book_review_path(@book) %>
+<p>
+   <% if @reviews.blank? %>
+          <h3>No reviews just yet, would you like to add the first!</h3>
+          <%= link_to "Write Review", new_movie_review_path(@movie), class: "btn btn-danger" %>
+        <% else %>
+          <% @reviews.each do |review| %>
+            <div class="reviews">
+              <div class="star-rating" data-score= <%= review.rating %> ></div>
+              <p><%= review.comment %></p>
+            </div>
+          <% end %>
+        <% end %>
+
+
+</p>
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back', books_path %>
+
+
+<script>
+    $('.star-rating').raty({
+      path: '/assets/',
+      readOnly: true,
+      score: function() {
+            return $(this).attr('data-score');
+    }
+  });
+</script>
