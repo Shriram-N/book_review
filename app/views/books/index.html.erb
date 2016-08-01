@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Summary</th>
+      
       <th>Rating</th>
       <th>Author</th>
       <th>Ranking</th>
@@ -23,7 +23,7 @@
     <% @books.each do |book| %>
       <tr>
         <td><%= book.Title %></td>
-        <td><%= book.Summary %></td>
+        <td><%= image_tag book.image.url(:medium) %></td>
         <td><%= book.Rating %></td>
         <td><%= book.Author %></td>
         <td><%= book.Ranking %></td>
