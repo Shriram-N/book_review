@@ -1,0 +1,13 @@
+
+<div class="row">
+  <% @books.each do |book| %>
+    <div class="col-sm-6 col-md-3">
+      <div class="thumbnail">
+        <%= link_to (image_tag book.image.url(:medium), class: 'image'), book %>
+      </div>
+      <%=book.get_likes.size %> Likes
+
+    </div>
+  <% end %>
+</div>
+</div>

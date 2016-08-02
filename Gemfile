@@ -48,3 +48,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'paperclip', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'acts_as_votable', '~> 0.10.0'
+gem 'searchkick', '~> 1.3', '>= 1.3.2'
