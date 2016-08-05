@@ -10,8 +10,10 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
+  <%= f.collection_select :category_id, Category.all, :id, :name, {promt: "Choose a category" }%>
+  </div>
+<div class="field">
     <%= f.label :Title %><br>
     <%= f.text_field :Title %>
   </div>

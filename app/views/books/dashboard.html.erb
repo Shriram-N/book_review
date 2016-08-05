@@ -1,0 +1,38 @@
+
+
+<div class="page-header">
+  <h1>Dashboard</h1>
+</div>
+<div class="media">
+  <div class="media-left media-middle">
+    <div class="container">
+        
+                        <a href="#">
+                        <% if current_user %>
+                          <% current_user.books.each do |book| %>
+                          <div class="well well-sm">
+                          <div class="row row-content">
+                            <div class="col-xs-8 col-sm-3">
+
+                         <%= link_to (image_tag(book.image.url(:thumb), class: 'media-object', alt: 'Commerical')),book_path(book) %>
+                         
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h2 class="media-heading"><%=link_to book.Title,book_path(book) %>
+                            <span class="badge">Favourited</span></h2>
+                        
+                        <p><%= book.Author %></p>
+                        
+                                  </div>
+                                  </div>
+                                  </div>
+                                  <br>
+                                  
+                          <% end %>
+
+                         <% end %>
+    
+    </div>
+  </div>
+</div>

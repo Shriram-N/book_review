@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   
-  devise_for :users
+  devise_for :users 
+   resources :users do
+  put :favorite, on: :member
+end
+
   resources :books do
       resources :reviews ,except: [:show,:index]
       collection do
@@ -15,5 +19,8 @@ Rails.application.routes.draw do
   end
 
   root 'books#index'
+  post 'books/:id/favorite' => "books#favorite"
+
+  get 'dashboard' => 'books#dashboard', as: "user_dashboard"
 
   end

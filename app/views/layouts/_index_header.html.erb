@@ -8,7 +8,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
-   <nav class="navbar navbar-default ">
+   <nav class="navbar navbar-default  ">
    <div class="container header_tag ">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header pull-left ">
@@ -66,30 +66,20 @@
         </div>
       
         
-
-        <ul class="navbar-header pull-right  " >
-
-          
+         
+        <ul class="navbar-header pull-right sign_in " >
         <% if user_signed_in? %>
-        <button  class="btn btn-alert button">
+        <button  class="btn btn-alert">
         <%=link_to "Sign Out",destroy_user_session_path,method: :delete %>
         </button>
         <%else %>
               
-        <button  class="btn btn-alert button"><%= link_to "Sign Up", new_user_registration_path %></button>
+        <button  class="btn btn-alert"><%= link_to "Sign Up", new_user_registration_path %></button>
         <button  class="btn btn-alert"><%= link_to "Login",new_user_session_path%></button>
         <%end %>
       </ul>
-      <div class="navbar-header pull-right">
-         <%= form_tag search_books_path, method: :get,role:"search" do %>
-            <%= text_field_tag :search, params[:search] , :size => 15 %>
-             <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
-   
-          <% end %>
-          </div>
       
-    </div>
-    <!-- /.navbar-collapse -->
+    </div><!-- /.navbar-collapse -->
 
   </div><!-- /.container-fluid -->
 

@@ -1,7 +1,9 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy,:upvote,:downvote]
-  before_action :authenticate_user!, except: [:index,:show]
   
+  before_filter :must_be_admin, only: [:edit, :new]
+
+
   def search
     if params[:search].present?
       @books = Book.search(params[:search])
@@ -9,13 +11,30 @@ class BooksController < ApplicationController
       @books = Book.all
     end
   end
+
+  def must_be_admin
+    unless current_user && current_user.admin?
+      redirect_to root_path, notice: ""
+    end
+  end
+
+
   def index
-    @books = Book.all
+    if params[:category].blank?
+      @books = Book.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 16)
+
+    else
+      @category_id = Category.find_by(name: params[:category]).id
+      @books = Book.where(category_id: @category_id).order("created_at DESC").paginate(:page => params[:page], :per_page => 16)
+
+    end
   end
 
   def show
-    @random_book=Book.where.not(id: @book).order("RANDOM()").first
+    @random_book=Book.where.not(id: @book).order("RANDOM()").limit(4)
     @reviews=Review.where(book_id: @book.id).order("created_at DESC")
+    @Audiobook = YouTubeAddy.extract_video_id(@book.Audiobook)
+    @Animated_Review = YouTubeAddy.extract_video_id(@book.Animated_Review)
 
      if @reviews.blank?
       @avg_review = 0
@@ -26,6 +45,8 @@ class BooksController < ApplicationController
 
   def new
     @book = current_user.books.build
+    @categories = Category.all.map{ |c| [c.name,c.id] }
+
   end
 
   
@@ -34,6 +55,7 @@ class BooksController < ApplicationController
 
   def create
     @book = current_user.books.build(book_params)
+    @book.category_id = params[:category_id]
 
     respond_to do |format|
       if @book.save
@@ -57,23 +79,18 @@ class BooksController < ApplicationController
       end
     end
   end
-
-   def favorite
-    type = params[:type]
-    if @type == "favorite"
-      current_user.favorites << @book
-      redirect_to :back, notice: "You favorited #{@book.Title}"
-
-    elsif type == "unfavorite"
-      current_user.favorites.delete(@book)
-      redirect_to :back, notice: "You Unfavorited #{@book.Title}"
-
-    else
-      # Type missing, nothing happens
-      redirect_to :back, notice: 'Nothing happened.'
+def favorite
+    book = Book.find(params[:id])
+     if current_user.books << book
+      redirect_to :book
     end
   end
 
+  def dashboard
+    
+      
+    
+  end
   def upvote
     @book.upvote_by current_user
     redirect_to :book
@@ -105,6 +122,6 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:Title, :Summary, :Rating, :Author, :Ranking, :Awards, :Recommended_by, :Amazon, :Audiobook, :Animated_Review,:image)
+      params.require(:book).permit(:Title, :Summary, :Rating, :Author, :Ranking, :Awards, :Recommended_by, :Amazon, :Audiobook, :Animated_Review,:image,:category_id)
     end
 end
