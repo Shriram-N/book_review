@@ -1,41 +1,86 @@
 
-  <header class="jumbotron">
-    <h1>The best preparation for tomorrow is doing your best today.</h1>
-    
-  </header>
+<header class="jumbotron">
+  <h1>The best preparation for tomorrow is doing your best today.</h1>
+
+</header>
 
 <div class="container">
-<div class="row">
-<div class="col-md-6  col-md-offset-3">
+  <div class="row">
+    <div class="col-md-6  col-md-offset-3">
 
- <%= form_tag search_books_path, method: :get,role:"search" do %>
-       <%= text_field_tag :search, params[:search] , :size => 60 %>
-          <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
-   
-    <% end %>
-    </form>
-    <br>
-</div>
-</div>
-<h1><%= params[:category] %></h1>
-<% if @books.count ==0%>
-<h1>There are no books currently in this category</h1>
-<%else %>
-<div class="row">
+      <%= form_tag search_books_path, method: :get,role:"search" do %>
+        <%= text_field_tag :search, params[:search] , :size => 60 %>
+        <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
 
-  <% @books.each do |book| %>
-    <div class="col-sm-6 col-md-3">
-      <div class="thumbnail">
-        
-        <%= link_to (image_tag book.image.url(:thumb), class: 'image'), book %>
+      <% end %>
+      </form>
+      <br>
+    </div>
+  </div>
+  <h1><%= params[:category] %></h1>
+  <% if @books.count ==0%>
+    <h1>There are no books currently in this category</h1>
+  <%else %>
+
+      <h3><%= @cat_1.name %></h3>
+      <div class="row">
+        <% @books_for_cat_1.each do |book| %>
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+              <%= link_to (image_tag book.image.url(:thumb), class: 'image'), book %>
+            </div>
+            <%=book.get_likes.size %> Likes
+          </div>
+          <% end %>
       </div>
-      <%=book.get_likes.size %> Likes
+      
+      <h3><%= @cat_2.name %></h3>
+      <div class="row">
+        <% @books_for_cat_2.each do |book| %>
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+              <%= link_to (image_tag book.image.url(:thumb), class: 'image'), book %>
+            </div>
+            <%=book.get_likes.size %> Likes
+          </div>
+          <% end %>
+      </div>
+      
+      <h3><%= @cat_3.name %></h3>
+      <div class="row">
+        <% @books_for_cat_3.each do |book| %>
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+              <%= link_to (image_tag book.image.url(:thumb), class: 'image'), book %>
+            </div>
+            <%=book.get_likes.size %> Likes
+          </div>
+          <% end %>
+      </div>
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+    <div class="row">
+
+      <% @books.each do |book| %>
+        <div class="col-sm-6 col-md-3">
+          <div class="thumbnail">
+
+            <%= link_to (image_tag book.image.url(:thumb), class: 'image'), book %>
+          </div>
+          <%=book.get_likes.size %> Likes
+
+        </div>
+      <% end %>
+    <% end %>
 
     </div>
-  <% end %>
-  <% end %>
-
-</div>
 </div>
 
 <%= will_paginate @posts, renderer: BootstrapPagination::Rails%>

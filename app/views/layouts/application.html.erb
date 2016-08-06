@@ -1,37 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>BestBook</title>
-  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <head>
+    <title>BestBook</title>
+    <%= csrf_meta_tags%>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <% if current_page?('/') %> 
+      <%= render 'layouts/index_header' %>      
+    <% else %>
+      <%= render 'layouts/header' %>          
+    <% end %>
+    <div class="container">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+      <p class="notice"><%= notice %> </p>
+      <p class="alert"><%= alert %> </p>
+      <%= yield %>
+    </div>
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css"</script>
-	<script src="stylesheet" href = "http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"></script>
-	<%= csrf_meta_tags%>
-<script src="../assets/stylesheet/books.scss"></script>
-<script src="../assets/stylesheet/application.css.scss"></script>
-<script src="../assets/stylesheet/reviews.css.scss"></script>
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-	<% if current_page?('/') %> 
-  <%= render 'layouts/index_header' %>      
-<% else %>
-  <%= render 'layouts/header' %>          
-<% end %>
-<div class="container">
-
-<p class="notice"><%= notice %> </p>
-<p class="alert"><%= alert %> </p>
-<%= yield %>
-</div>
-
-</body>
+  </body>
 </html>
