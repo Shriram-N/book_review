@@ -1,7 +1,9 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy,:upvote,:downvote]
   
-  before_filter :must_be_admin, only: [:edit, :new]
+  before_filter :must_be_admin, only: [:edit]
+
+  #for not showing new page to others before_filter :must_be_admin, only: [:edit, :new]
 
 
   def search
@@ -39,7 +41,7 @@ class BooksController < ApplicationController
      if @reviews.blank?
       @avg_review = 0
     else
-      @avg_review = @reviews.average(:rating).round(2)
+      @avg_review = @reviews.average(:rating)
     end
   end
 
