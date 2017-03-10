@@ -36,7 +36,11 @@ class BooksController < ApplicationController
     @random_book=Book.where.not(id: @book).order("RANDOM()").limit(4)
     @reviews=Review.where(book_id: @book.id).order("created_at DESC")
     @Audiobook = YouTubeAddy.extract_video_id(@book.Audiobook)
+    puts @Audiobook
+    puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     @Animated_Review = YouTubeAddy.extract_video_id(@book.Animated_Review)
+    puts @Animated_Review
+    puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
      if @reviews.blank?
       @avg_review = 0
