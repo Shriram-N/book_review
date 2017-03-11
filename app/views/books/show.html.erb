@@ -23,17 +23,16 @@
          <strong>Ranking:</strong>
          <%= @book.Ranking %>
       <p>  
-       <p>
-          <i class="fi.fa.fa-thumbs-o-up">
-          <%= pluralize(@book.get_upvotes.size,"Like") %>
-          </i>
-          <i class="fi.fa.fa-thumbs-o-down">
-          <%= pluralize(@book.get_downvotes.size,"Dislike") %>
-      </p>
       <p>
-          <%= link_to "Like", Like_book_path(@book), method: :get%>
-          <%= link_to "DisLike", dilike_book_path(@book), method: :get%>
+
+          <%= link_to Like_book_path(@book), method: :get do%>
+          <i class="fa fa-heart-o" style="font-size:16px;" aria-hidden="true"></i>
+          <%= @book.get_upvotes.size %>
+          <%end%>
+
+
       </p>
+                        
           <ul class="nav nav-tabs">
           <li class="active"><a data-toggle="tab" href="#home">Amazon</a></li>
           <li><a data-toggle="tab" href="#menu1">Audiobook</a></li>
@@ -58,7 +57,8 @@
 
 <div class="col-sm-4 col-md-4">
  <% if current_user %>
-  <%= form_tag(controller: "books", action: "favorite", method: "post") do %>
+  <%= form_tag(controller: "books", action: "favorite" , method: "post") do %>
+  
     <%= submit_tag "Add to Favorite"%>
 <% end %>
 <% end %> 
@@ -97,14 +97,6 @@
   <%= @book.Awards %>
 </p>
 
-<p>
-  <strong>Recommended by:</strong>
-  <%= @book.Recommended_by %>
-</p>
-<h3>Write a Review</h3>
-<br>
-<br>
-<%= link_to "Write a Review",new_book_review_path(@book) %>
 
 
 <p>

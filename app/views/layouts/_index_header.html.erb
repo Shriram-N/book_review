@@ -7,79 +7,46 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<style>
+  <style>
 
-.nav a {
-  padding: 0px;
-  margin: 0px;
-  text-align: center;
-  display:inline-block;
-  vertical-align:top;
-}
-.drop{
-
-  padding: 0px;
-  margin: 0px;
-  text-align: center;
-  display:inline-block;
-  vertical-align:top; 
-}
 .navbar-nav > li > a, .navbar-brand {
     padding-top:5px !important; padding-bottom:0 !important;
     height: 30px;
 }
-.navbar {min-height:20px !important;}
+.navbar {min-height:28px !important;}
 
-} 
 </style>
 </head>
 
-   <nav class="navbar navbar-inverse  ">
-  < <div class="container header_tag ">
+  <nav class="navbar navbar-inverse">
+  <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header pull-left ">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#category-dropdown" aria-expanded="false">
-        <span class="sr-only">Category</span>
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <div class="col-xs-1 col-md-1">
-      <a class="navbar-brand " href="#"><%= link_to "BestBooksEver", '/' %></a>
-      </div>
+      <ul class="navbar-brand"  ><%= link_to "BestBooksEver", '/' %></ul>
     </div>
-    <div class="col-xs-1 col-md-1">
-        <a href="#"><%= link_to "Home", '/' %> <span class="sr-only"></span></a>
-        </div>
-        <div class="col-xs-1 col-md-1">
-        <a href="#"><%= link_to "Dashboard", '/dashboard' %> <span class="sr-only"></span></a>
-        </div>
+
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="category-dropdown">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-
-         
-
-         <div class="col-xs-2 col-md-2">
+        <li class="active"><%= link_to "Dashboard", '/dashboard' %> <span class="sr-only">(current)</span></a></li>
         
-        <li class="dropdown drop">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-          <li ><a href="#">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Category <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">
             <% Category.all.each do |category| %>
                <%= link_to category.name, books_path(category: category.name) %>
                <% end  %>
               </a></li>
           </ul>
         </li>
-        </div>
-      </ul>
-        <div class="col-xs-2 col-md-2">
-
-        <ul class="nav navbar-nav">
-        
-         
-        <div class="dropdown drop">
+         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Recommended By <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="#">Elon Musk</a></li>
@@ -89,15 +56,9 @@
             <li><a href="#">Bill Gates</a></li>
           </ul>
         </li>
-        
-        </ul>
-        </div>
-      
-      
-        
-         
-
-      <ul class="navbar-header pull-right sign_in " >
+      </ul>
+     
+       <ul class="navbar-header pull-right sign_in " >
        <% if user_signed_in? %>
                     <li class="nav-item dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">
@@ -125,13 +86,9 @@
                     </li>
                     <% end %>
                     </ul>
-      
+        
+       
+      </ul>
     </div><!-- /.navbar-collapse -->
-
   </div><!-- /.container-fluid -->
-
-
-            </div>
-        </div>
-        </div>
-    </div>
+</nav>
