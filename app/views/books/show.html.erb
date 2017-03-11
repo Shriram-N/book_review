@@ -42,7 +42,7 @@
           <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
               <h3>Amazon.in</h3>
-              <p><%= @book.Amazon %></p>
+              <p><%=raw @book.Amazon %></p>
             </div>
           <div id="menu1" class="tab-pane fade">
               <h3>Audiobook</h3>
@@ -98,13 +98,15 @@
 </p>
 
 
-
 <p>
    <% if @reviews.blank? %>
           <h3>No reviews just yet, would you like to add the first!</h3>
           <%= link_to "Write Review", new_book_review_path(@book), class: "btn btn-danger" %>
         <% else %>
+
+          <%= link_to "Write Review", new_book_review_path(@book), class: "btn btn-danger" %>
           <% @reviews.each do |review| %>
+
             <div class="reviews">
               <div class="star-rating" data-score= <%= review.rating %> ></div>
               <p><%= review.comment %></p>
@@ -118,6 +120,7 @@
 <%= link_to 'Back', books_path %>
 
 </div>
+
 <script>
     $('.star-rating').raty({
       path: '/assets/',
